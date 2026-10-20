@@ -7,6 +7,8 @@ import LoginView from './views/LoginView'
 import RegistroView from './views/RegistroView'
 import CheckoutView from './views/CheckoutView'
 import OfertasView from './views/OfertasView'
+import CompraExitosaView from './views/CompraExitosaView'
+import CompraFallidaView from './views/CompraFallidaView'
 import AdminLayout from './views/admin/AdminLayout'
 import AdminProductosView from './views/admin/AdminProductosView'
 import AdminAgregarProductoView from './views/admin/AdminAgregarProductoView'
@@ -60,6 +62,10 @@ function App() {
     setCarrito(carrito.filter((item) => item.id !== id))
   }
 
+  function vaciarCarrito() {
+    setCarrito([])
+  }
+
   const totalCantidad = carrito.reduce((acc, item) => acc + item.cantidad, 0)
   const totalPagar = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0)
 
@@ -81,10 +87,13 @@ function App() {
               carrito={carrito}
               cambiarCantidad={cambiarCantidad}
               eliminarDelCarrito={eliminarDelCarrito}
+              vaciarCarrito={vaciarCarrito}
               totalPagar={totalPagar}
             />
           }
         />
+        <Route path="/compra-exitosa" element={<CompraExitosaView />} />
+        <Route path="/compra-fallida" element={<CompraFallidaView />} />
         <Route path="/ofertas" element={<OfertasView alAgregarAlCarrito={agregarAlCarrito} />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="productos" element={<AdminProductosView />} />
